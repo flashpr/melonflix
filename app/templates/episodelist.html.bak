@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+ <div class="medialist">
+  <center> 
+  {% for filename, title, poster, season in lists %}
+  <table style="display: inline"> 
+  <tr><td><a href='/series/{{ filename }}'><img class="poster" src="{{ poster }}" width="162" height="238"></a></td></tr>
+
+  <tr><td class="postertitle">{{ title }} - {{ season }}</td></tr>
+  </table>
+
+  {% endfor %}
+
+    <div class="episodediv">	
+    <table class="episodetable">
+	{% for i in  range(1, episodes) %} 
+	
+	<tr class="episoderow"><td> {{ "{0:0=2d}".format(i) }} </td></tr>
+
+	{% endfor %}
+    <table>
+    </div>
+
+  </center>
+ </div>
+
+{% endblock %}

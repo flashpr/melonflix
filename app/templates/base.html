@@ -1,0 +1,22 @@
+<html>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3pro.css">
+ <head>
+  <title> - melonflix</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+ </head>
+ <body>
+  <div class="header">
+  <table class="menu">
+  <tr class="menurow">
+   <td class="menuitem"><a href="/">home</a></td>
+   <td class="menuitem"><a href="/movies">movies</a></td>
+   <td class="menuitem"><a href="/series">series</a></td>
+   <td class="menuitem"><a href="/transmission/web/" target="_blank">torrent</a></td>
+  </table>
+  </div>
+
+	{% block content %}{% endblock %}
+
+ </body>
+</html>

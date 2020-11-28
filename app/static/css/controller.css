@@ -1,0 +1,67 @@
+body {
+	background-color: #116466;
+}
+
+.header {
+	position: absolute;
+	top: 3%;
+	left: 0%;
+	width: 99%;
+	height: 10%;
+	background-color: gray;
+	border: 2px solid;
+	font-size: 32px;
+	font-family: "Lucida Console", Arial;
+}
+
+.rc {
+	border: 2px solid;
+	border-color: gray;
+	position: relative;
+	top: 15%;
+	left: 50%;
+	transform: translate(-50%);
+	width: 80%;
+	height: 80%;
+}
+
+.buttons {
+	border: 2px solid;
+	border-color: yellow;
+	width: 48%;
+	height: 98%;
+	float: left;
+}
+
+.imgwrap {
+	position: relative;
+	border: 2px solid;
+	left: 50%;
+	transform: translate(-50%);
+}
+
+.imgwrap img {
+	width: auto;
+	height: 30%;
+}
+
+
+.volume {
+	border: 2px solid;
+	border-color: red;
+	float: left;
+	width: 48%;
+	height: 98%;
+}
+
+input[type=range][orient=vertical] {
+	position: relative;
+	top: 5%;
+	left: 50%;
+	transform: translate(-50%);
+	writing-mode: bt-lr; /* IE */
+	-webkit-appearance: slider-vertical; /* WebKit */
+	width: 14px;
+	height: 80%;
+	padding: 0 5px;
+}

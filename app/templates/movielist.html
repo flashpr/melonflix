@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+ <div class="medialist">
+  <center> 
+  {% for filename, title, poster, ondisk in lists %}
+  <table style="display: inline"> 
+	<tr><td>
+		{% if ondisk == 2 %}<a href='/play/{{ filename }}'>{% endif %}
+		<img class="poster_{{ ondisk }}"  src="{{ poster }}" width="162" height="238" onerror=this.src="/static/img/clapboard.jpg">
+		</a>
+	</td></tr>
+
+  <tr><td class="postertitle">{{ title }}</td></tr>
+  </table>
+  {% endfor %}
+
+   <div class="footer">
+    <p><i><sub> melonflix </sub></i></p>
+   </div>
+  </center>
+ </div>
+
+{% endblock %}

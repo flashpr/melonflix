@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+ <div class="medialist">
+  <center> 
+  {% for filename, title, poster, season in lists %}
+  <table style="display: inline"> 
+  <tr><td><a href='/episodes/{{ filename }}'><img class="poster" src="{{ poster }}" width="162" height="238"></a></td></tr>
+
+  <tr><td class="postertitle">{{ title }} - {{ season }}</td></tr>
+  </table>
+  {% endfor %}
+
+   <div class="footer">
+    <p><i><sub> melonflix </sub></i></p>
+   </div>
+  </center>
+ </div>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+ <div class="medialist">
+  <center> 
+  <table style="display: inline"> 
+  <tr><td><a href='/series/{{ lists[0] }}'><img class="poster" src="{{ lists[2] }}" width="162" height="238"></a></td></tr>
+
+  <tr><td class="postertitle">{{ lists[1] }} - {{ lists[3] }}</td></tr>
+  </table>
+
+
+    <div class="episodediv">	
+    <table class="episodetable">
+	{% for i in  range(1, episodes) %} 
+	
+	<tr class="episoderow"><td class="episoderowtd"><a href="/play/{{ lists[0] }}+{{ lists[3] }}E{{ "{0:0=2d}".format(i) }}"> {{ lists[3] }} {{ "{0:0=2d}".format(i) }} </a></td></tr>
+
+	{% endfor %}
+    <table>
+    </div>
+
+  </center>
+ </div>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <center> 
+  <div class="homediv">
+    <h2> MELONFLIX </h2>
+
+    <h3> ADD MEDIA </h3>
+    <form action="/addmedia" method="POST">
+      URL: <input type="text" name="url">   <input type="submit" value="ADD"></br></br>
+      <input type="radio" name="link_only" value="true"> torrent link only</br>
+    </form>
+    </br></br></br></br>
+    <img src="/static/img/melon.gif" width="150px" height="150px">
+  </div>
+  </center>
+
+{% endblock %}

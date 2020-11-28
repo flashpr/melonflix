@@ -1,0 +1,45 @@
+<html>
+ <head>
+  <title>Melonflix</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/controller.css') }}">
+ </head>
+ <body>
+ 
+ <div class="header"> 
+  <span><span style="font-size:26px">Playing: </span><marquee direction="left" scrolldelay="550"> {{ title }} </marquee></span>
+ </div>
+
+ <div class="rc">
+
+ <div class="volume">
+  <input class="slider" type="range" orient="vertical" min="0" max="65536" value="{{ volume }}" step="3276" onchange="sendaction(this.value)">
+ </div>
+ 
+ <div class="buttons">
+  
+   <div class="imgwrap"><img class="rcbutton" onclick="sendaction('pause')" src="{{ url_for('static',filename='img/pause.png') }}"></div></br>
+   <div class="imgwrap"><img class="rcbutton" onclick="sendaction('resume')" src="{{ url_for('static',filename='img/play.png') }}"></div></br>
+   <div class="imgwrap"><img class="rcbutton" onclick="sendaction('quit')" src="{{ url_for('static',filename='img/close.png') }}"></div>
+ 
+ </div>
+
+
+ </div>
+
+  <script type="text/javascript">
+   function sendaction(action){
+
+   	const http = new XMLHttpRequest();
+	var url = "http://192.168.0.20/rc/" + action;
+
+	http.open('GET',url);
+	http.send();
+	if(action == "quit"){
+	//	window.location.replace("http://192.168.0.20/rc/" + action);
+		history.back(-1);
+		return;
+	}
+   }
+  </script>
+ </body>
+</html>
