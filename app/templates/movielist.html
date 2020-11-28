@@ -8,6 +8,7 @@
   <table style="display: inline"> 
 	<tr><td>
 		{% if ondisk == 2 %}<a href='/play/{{ filename }}'>{% endif %}
+		{% if ondisk == 0 %}<a href='/readdmedia/{{ filename }}+movies'>{% endif %}
 		<img class="poster_{{ ondisk }}"  src="{{ poster }}" width="162" height="238" onerror=this.src="/static/img/clapboard.jpg">
 		</a>
 	</td></tr>

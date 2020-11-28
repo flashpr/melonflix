@@ -5,6 +5,9 @@ import os
 import re
 import mysql.connector
 
+db = mysql.connector.connect(user=db_user, password=db_password, host='127.0.0.1',database='melonflix')
+db.autocommit = True
+cursor = db.cursor()
 
 @app.route('/')
 @app.route('/index')
@@ -13,10 +16,6 @@ def index():
 
 @app.route('/movies')
 def movies():
-
-    db = mysql.connector.connect(user=db_user, password=db_password, host='127.0.0.1',database='melonflix')
-
-    cursor = db.cursor()
     
     query1 = "SELECT filename, title, poster, ondisk FROM movies WHERE ondisk=1 ORDER BY title ASC"
     query2 = "SELECT filename, title, poster, ondisk FROM movies WHERE ondisk=2 ORDER BY title ASC"
@@ -63,9 +62,6 @@ def play(video):
     episode = ""
     if len(video.split("+")) > 1:
         episode = video.split("+")[1]
-
-    db = mysql.connector.connect(user=db_user, password=db_password, host='127.0.0.1',database='melonflix')
-    cursor = db.cursor()
     
     query = "SELECT title FROM movies WHERE filename='" + filename + "' UNION SELECT title FROM series WHERE filename='" + filename + "'"
 
@@ -91,9 +87,26 @@ def rc(action):
 def addmedia():
     url = request.form['url']
 
-    cmd = "bash /opt/melonflix/scripts/torrent-add.sh '" + url + "'"
+    cmd = "/opt/melonflix/scripts/torrent-add.sh '" + url + "'"
     os.popen(cmd)
     return redirect('/index')
+
+@app.route('/readdmedia/<torrent_info>')
+def readdmedia(torrent_info):
+    filename = torrent_info.split("+")[0]
+    m_type = torrent_info.split("+")[1]
+
+    query = "SELECT link FROM " + m_type + " WHERE filename='" + filename + "'"
+    cursor.execute(query)
+    link = cursor.fetchone()[0]
+
+    cmd = "/opt/melonflix/scripts/torrent-readd.sh '" + link + "' " + m_type
+    os.popen(cmd)
+    
+    query = "UPDATE movies SET ondisk='1' WHERE filename='" + filename + "'"
+    cursor.execute(query)
+
+    return redirect('/' + m_type)
 
 @app.route('/test')
 def test():

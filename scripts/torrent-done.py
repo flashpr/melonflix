@@ -3,8 +3,8 @@ from dbcred import *
 import mysql.connector
 import sys
 
-# MANAGED BY torrent-add.sh
-filename = 'The.Tree.of.Life.2011.1080p.BluRay.DTS.x264.HuN-MWT'
+# MANAGED BY torrent-[re]add.sh
+filename = 'Se7en.1995.PROPER.REMASTERED.720p.BluRay.DTS-ES.x264.HuN-prldm'
 
 
 db = mysql.connector.connect(user=db_user,password=db_password, host='127.0.0.1',database='melonflix')

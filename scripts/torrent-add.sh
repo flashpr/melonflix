@@ -16,7 +16,7 @@ for (( i=1; i<($l_array-1); i++ )); do
 	title="$title+${array[$i]}"
 done
     
-if [ -n `echo $year | grep -e  '.*[1,2][0,9][0-9][0-9]'` ]; then
+if [ -n `echo $year | grep -e  '.*[1,2][0,9][0-9][0-9][^p]'` ]; then
 	omdb=`curl -s "http://www.omdbapi.com/?apikey=64e7df7f&t=$title&y=$year"`
 	transmission-remote -t $id --move /data/media/movies
 	media_type="movie"
@@ -36,9 +36,6 @@ else
 	transmission-remote -t $id --move /data/media/series
 	#TODO
 fi
-
-
-echo "$media_json"
 
 sed -i "/^filename = /s/'.*'/'$name'/" /opt/melonflix/scripts/torrent-done.py
 transmission-remote -t $id -s
