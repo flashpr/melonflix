@@ -18,9 +18,9 @@ done
     
 if [ -n `echo $year | grep -e  '.*[1,2][0,9][0-9][0-9][^p]'` ]; then
 	omdb=`curl -s "http://www.omdbapi.com/?apikey=64e7df7f&t=$title&y=$year"`
-	transmission-remote -t $id --move /data/media/movies
-	media_type="movie"
-	media_json=`cat << EOF
+	media_type="movies"
+	if [[ $(echo $omdb | jq .Response) == "True" ) ]]; then
+		media_json=`cat << EOF
 {
  "Link": "$link",
  "Filename": "$name",
@@ -29,15 +29,28 @@ if [ -n `echo $year | grep -e  '.*[1,2][0,9][0-9][0-9][^p]'` ]; then
 }
 EOF
 `
+	else
+		media_json=`cat << EOF
+{
+ "Link": "$link",
+ "Filename": "$name",
+ "Title": $(echo $title | sed 's/+/ /g'),
+ "Poster": ""
+}
+EOF
+`
+	fi
+	
 	echo "transmission-remote -t $id -rad && /opt/melonflix/scripts/torrent-done.py $name" | at now +4 days
 	
 else
 	omdb=`curl -s "http://www.omdbapi.com/?apikey=64e7df7f&t=$title"`
-	transmission-remote -t $id --move /data/media/series
+	media_type="series"
 	#TODO
 fi
 
 sed -i "/^filename = /s/'.*'/'$name'/" /opt/melonflix/scripts/torrent-done.py
+transmission-remote -t $id --move /data/media/$media_type
 transmission-remote -t $id -s
 
 python3 /opt/melonflix/scripts/db-manager.py "$media_type" "$media_json"

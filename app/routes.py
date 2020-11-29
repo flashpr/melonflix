@@ -17,6 +17,8 @@ def index():
 @app.route('/movies')
 def movies():
     
+    if db.is_connected() is False: db.reconnect(attempts=1, delay=1)
+
     query1 = "SELECT filename, title, poster, ondisk FROM movies WHERE ondisk=1 ORDER BY title ASC"
     query2 = "SELECT filename, title, poster, ondisk FROM movies WHERE ondisk=2 ORDER BY title ASC"
     query0 = "SELECT filename, title, poster, ondisk FROM movies WHERE ondisk=0 ORDER BY title ASC"
@@ -34,7 +36,7 @@ def movies():
 @app.route('/series')
 def series():
 
-    cursor = db.cursor()
+    if db.is_connected() is False: db.reconnect(attempts=1, delay=1)
     
     query = "SELECT filename, title, poster, season FROM series ORDER BY title ASC"
     
@@ -45,7 +47,7 @@ def series():
 @app.route('/episodes/<title>')
 def episodes(title):
 
-    cursor = db.cursor()
+    if db.is_connected() is False: db.reconnect(attempts=1, delay=1)
 
     query = "SELECT filename, title, poster, season, episodes FROM series WHERE filename='" + title + "'"
     cursor.execute(query)
@@ -63,6 +65,8 @@ def play(video):
     if len(video.split("+")) > 1:
         episode = video.split("+")[1]
     
+    if db.is_connected() is False: db.reconnect(attempts=1, delay=0)
+
     query = "SELECT title FROM movies WHERE filename='" + filename + "' UNION SELECT title FROM series WHERE filename='" + filename + "'"
 
     cursor.execute(query)
@@ -95,6 +99,8 @@ def addmedia():
 def readdmedia(torrent_info):
     filename = torrent_info.split("+")[0]
     m_type = torrent_info.split("+")[1]
+
+    if db.is_connected() is False: db.reconnect(attempts=1, delay=0)
 
     query = "SELECT link FROM " + m_type + " WHERE filename='" + filename + "'"
     cursor.execute(query)

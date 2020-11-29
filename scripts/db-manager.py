@@ -68,7 +68,7 @@ if __name__ == "__main__":
 		type = sys.argv[1]
 		print("MANAGEDB.PY: UPDATING WITH THE TYPE : " + type)
 		
-		if type == 'movie':
+		if type == 'movies':
 			update_movies_table()
 		elif type == 'series':
 			update_series_table()
